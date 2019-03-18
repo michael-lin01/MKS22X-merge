@@ -31,9 +31,15 @@ public class Merge{
 
   private static void mergesortOpt(int[] data, int[] temp, int lo, int hi){
     if(lo<hi){
-      mergesortOpt(temp,data,lo,)
-      mergesortOpt(temp,data,)
+      int mid = (lo+hi)/2
+      mergesortOpt(temp,data,lo,mid);
+      mergesortOpt(temp,data,mid+1);
+      merge(temp,data,lo,hi);
     }
+  }
+  
+  private static void merge(int in[], int out[],int lo, int hi){
+    
   }
 
   private static void merge(int[] in1, int[] in2, int[] out){
