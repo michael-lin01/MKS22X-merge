@@ -2,14 +2,14 @@ import java.util.Arrays;
 
 public class Merge{
   public static void mergesort(int[] data){
-    mergesort(data,0,data.length);
+    mergesort(data,0,data.length-1);
   }
 
   private static void mergesort(int[] data, int lo, int hi){
-    if(lo < hi && data.length > 1){
+    if(lo < hi){
       int[] left,right;
 
-      left = new int[(hi-lo)/2];
+      left = new int[data.length/2];
       right = new int[data.length-left.length];
       for(int i = 0; i<left.length;i++){
         left[i]=data[i];
@@ -20,8 +20,9 @@ public class Merge{
         n++;
       }
 
-      mergesort(left,lo,left.length);
-      mergesort(right,left.length+1,hi);
+      //System.out.println("lo: "+lo+"\tleft.length: "+left.length+"\thi: "+hi);
+      mergesort(left,lo,lo+left.length-1);
+      mergesort(right,lo+left.length,hi);
       //System.out.println("left: "+Arrays.toString(left));
       //System.out.println("right: "+Arrays.toString(right));
       merge(left,right,data);
@@ -32,8 +33,8 @@ public class Merge{
     int current1 = 0;
     int current2 = 0;
 
-    System.out.println("in1: "+ Arrays.toString(in1));
-    System.out.println("in2: "+Arrays.toString(in2));
+    //System.out.println("in1: "+ Arrays.toString(in1));
+    //System.out.println("in2: "+Arrays.toString(in2));
     //System.out.println(in1.length+in2.length);
 
     for(int i = 0; i < in1.length+in2.length; i++){
@@ -52,11 +53,15 @@ public class Merge{
         out[i]=in2[current2++];
       }
     }
-    System.out.println("Done merging: "+Arrays.toString(out));
+    //System.out.println("Done merging: "+Arrays.toString(out));
   }
 
   public static void main(String args[]){
-    int[] ary = {30,20,1,7,10,15,1,4};
+    int[] ary = new int[20];
+    for(int i = 0; i < ary.length;i++){
+      ary[i]=(int)(Math.random()*20)+1;
+    }
+    System.out.println(Arrays.toString(ary));
     mergesort(ary);
     System.out.println(Arrays.toString(ary));
   }
