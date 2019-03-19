@@ -2,12 +2,40 @@ import java.util.Arrays;
 
 public class Merge{
   public static void mergesort(int[] data){
-    mergesort(data,0,data.length-1);
-    //mergesortOpt()
+    //mergesort(data,0,data.length-1);
+    int[] temp = new int[data.length];
+    for(int i = 0; i < data.length;i++){
+      temp[i]=data[i];
+    }
+    mergesortOpt(data,temp,0,data.length-1);
+  }
+
+  public static void insertionSort(int[] data, int lo, int hi){
+    for (int i = lo+1; i<=hi;i++){
+      int x = data[i];
+      int n = i;
+      while (n > 0 && x < data[n-1]){
+        data[n]=data[n-1];
+        n--;
+      }
+      data[n]=x;
+    }
+  }
+
+  public static void insertionSort(int[] data){
+    for (int i = 1; i<data.length;i++){
+      int x = data[i];
+      int n = i;
+      while (n > 0 && x < data[n-1]){
+        data[n]=data[n-1];
+        n--;
+      }
+      data[n]=x;
+    }
   }
 
   private static void mergesort(int[] data, int lo, int hi){
-    if(lo < hi){
+    if(lo + 100 < hi){
       int[] left,right;
 
       left = new int[data.length/2];
@@ -28,27 +56,28 @@ public class Merge{
       //System.out.println("right: "+Arrays.toString(right));
       merge(left,right,data);
     }
+    else{
+      insertionSort(data);
+    }
   }
 
   private static void mergesortOpt(int[] data, int[] temp, int lo, int hi){
     if(lo<hi){
       int mid = (lo+hi)/2;
-      mergesortOpt(temp,data,lo,mid-1);
-      mergesortOpt(temp,data,mid,hi);
+      mergesortOpt(temp,data,lo,mid);
+      mergesortOpt(temp,data,mid+1,hi);
       merge(temp,data,lo,hi);
     }
   }
 
   private static void merge(int in[], int out[],int lo, int hi){
-    int mid = (lo+hi)/2;
-    while(lo<hi&&mid<hi){
-      if(in[lo]>in[mid]){
-        int temp = in[lo];
-        in[lo] = in[mid];
-        in[mid] = temp;
-        lo++;
+    int mid = (lo+hi)/2+1;
+    int current = mid;
+    for(int i = lo; i <= hi; i++){
+      if(current>hi||lo<mid&&in[lo]<in[current]){
+        out[i]=in[lo++];
       }
-      else mid++;
+      else out[i]=in[current++];
     }
   }
 
@@ -80,7 +109,7 @@ public class Merge{
   }
 
   public static void main(String args[]){
-    int[] ary = new int[20];
+    int[] ary = new int[2];
     for(int i = 0; i < ary.length;i++){
       ary[i]=(int)(Math.random()*20)+1;
     }
