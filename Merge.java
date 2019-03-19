@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class Merge{
   public static void mergesort(int[] data){
     mergesort(data,0,data.length-1);
+    //mergesortOpt()
   }
 
   private static void mergesort(int[] data, int lo, int hi){
@@ -31,15 +32,24 @@ public class Merge{
 
   private static void mergesortOpt(int[] data, int[] temp, int lo, int hi){
     if(lo<hi){
-      int mid = (lo+hi)/2
-      mergesortOpt(temp,data,lo,mid);
-      mergesortOpt(temp,data,mid+1);
+      int mid = (lo+hi)/2;
+      mergesortOpt(temp,data,lo,mid-1);
+      mergesortOpt(temp,data,mid,hi);
       merge(temp,data,lo,hi);
     }
   }
-  
+
   private static void merge(int in[], int out[],int lo, int hi){
-    
+    int mid = (lo+hi)/2;
+    while(lo<hi&&mid<hi){
+      if(in[lo]>in[mid]){
+        int temp = in[lo];
+        in[lo] = in[mid];
+        in[mid] = temp;
+        lo++;
+      }
+      else mid++;
+    }
   }
 
   private static void merge(int[] in1, int[] in2, int[] out){
