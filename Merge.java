@@ -9,7 +9,7 @@ public class Merge{
     }
     mergesortOpt(data,temp,0,data.length-1);
   }
-  
+
   //bounded
   public static void insertionSort(int[] data, int lo, int hi){
     for (int i = lo+1; i<=hi;i++){
@@ -22,7 +22,7 @@ public class Merge{
       data[n]=x;
     }
   }
-  
+
   //not bounded
   public static void insertionSort(int[] data){
     for (int i = 1; i<data.length;i++){
@@ -35,8 +35,8 @@ public class Merge{
       data[n]=x;
     }
   }
-  
-  
+
+
   //creating new arrays each time
   private static void mergesort(int[] data, int lo, int hi){
     if(lo+100 < hi){
@@ -64,10 +64,10 @@ public class Merge{
       insertionSort(data);
     }
   }
-  
+
   //switching b/w 2 arrays
   private static void mergesortOpt(int[] data, int[] temp, int lo, int hi){
-    if(lo+100<hi){
+    if(lo+75<hi){
       int mid = (lo+hi)/2;
       mergesortOpt(temp,data,lo,mid);
       mergesortOpt(temp,data,mid+1,hi);
@@ -78,7 +78,7 @@ public class Merge{
     }
 
   }
-  
+
   //merging the data with temp array
   private static void merge(int in[], int out[],int lo, int hi){
     int mid = (lo+hi)/2+1;
