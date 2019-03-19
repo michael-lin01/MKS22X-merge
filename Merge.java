@@ -9,19 +9,21 @@ public class Merge{
     }
     mergesortOpt(data,temp,0,data.length-1);
   }
-
+  
+  //bounded
   public static void insertionSort(int[] data, int lo, int hi){
     for (int i = lo+1; i<=hi;i++){
       int x = data[i];
       int n = i;
-      while (n > 0 && x < data[n-1]){
+      while (n > lo && x < data[n-1]){
         data[n]=data[n-1];
         n--;
       }
       data[n]=x;
     }
   }
-
+  
+  //not bounded
   public static void insertionSort(int[] data){
     for (int i = 1; i<data.length;i++){
       int x = data[i];
@@ -33,9 +35,11 @@ public class Merge{
       data[n]=x;
     }
   }
-
+  
+  
+  //creating new arrays each time
   private static void mergesort(int[] data, int lo, int hi){
-    if(lo + 100 < hi){
+    if(lo+100 < hi){
       int[] left,right;
 
       left = new int[data.length/2];
@@ -60,16 +64,22 @@ public class Merge{
       insertionSort(data);
     }
   }
-
+  
+  //switching b/w 2 arrays
   private static void mergesortOpt(int[] data, int[] temp, int lo, int hi){
-    if(lo<hi){
+    if(lo+100<hi){
       int mid = (lo+hi)/2;
       mergesortOpt(temp,data,lo,mid);
       mergesortOpt(temp,data,mid+1,hi);
       merge(temp,data,lo,hi);
     }
-  }
+    else{
+      insertionSort(data,lo,hi);
+    }
 
+  }
+  
+  //merging the data with temp array
   private static void merge(int in[], int out[],int lo, int hi){
     int mid = (lo+hi)/2+1;
     int current = mid;
@@ -81,6 +91,7 @@ public class Merge{
     }
   }
 
+   //merging left and right arrays into data
   private static void merge(int[] in1, int[] in2, int[] out){
     int current1 = 0;
     int current2 = 0;
@@ -109,9 +120,9 @@ public class Merge{
   }
 
   public static void main(String args[]){
-    int[] ary = new int[2];
+    int[] ary = new int[7];
     for(int i = 0; i < ary.length;i++){
-      ary[i]=(int)(Math.random()*20)+1;
+      ary[i]=(int)(Math.random()*100)+1;
     }
     System.out.println(Arrays.toString(ary));
     mergesort(ary);
